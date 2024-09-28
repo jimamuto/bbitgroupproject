@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>//input output read write file operations
+#include <vector>
+#include<utility>
 using namespace std;
 
 
@@ -7,8 +9,9 @@ using namespace std;
 int main()
 {
     //opening the csv file
-   ifstream ip("/Users/onyan/OneDrive/Documents/teams_csvFile.csv");
+    ifstream ip("/Users/onyan/OneDrive/Documents/teams_csvFile.csv");
     if(!ip.is_open()) cout<<"error" <<endl;
+
 
     string Teamname;
     string Localtown;
@@ -23,11 +26,16 @@ int main()
         cout<<"Local town- "<<Localtown<<"\n";
         cout<<"Team stadium-"<<Teamstadium<<"\n";
         cout<<"......................"<<"\n";
-
-       
-
-
     }
+
     ip.close();//function to close the file
-    return 0;
-}
+    //data structure to store information about the teams
+    vector<string>team_names={"Cklein Starts","Wolves FC","Dolphins FC","Sea Horses FC","Sharks United","Lake Basin FC","Thika United","Mavuno Comrades FC","Nakuru FC","Ostrich Associates"};
+    vector<string>local_town={"Nairobi","Nairobi","Mombasa","Mombasa","Kisumu","Kisumu","Thika","Thika","Nakuru","Nakuru"};
+    vector<string>team_stadium={"Cklein Arena","Wolves","Dolphins","SHorses Arena","Sharks Field","LBasin","Thika Field","Vuno Grounds","Nakuru Field","OAssociates"};
+    //pairing elements of team vector strings
+
+
+        return 0;
+    }
+
