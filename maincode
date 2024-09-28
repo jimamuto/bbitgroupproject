@@ -1,0 +1,33 @@
+#include <iostream>
+#include <fstream>//input output read write file operations
+using namespace std;
+
+
+
+int main()
+{
+    //opening the csv file
+   ifstream ip("/Users/onyan/OneDrive/Documents/teams_csvFile.csv");
+    if(!ip.is_open()) cout<<"error" <<endl;
+
+    string Teamname;
+    string Localtown;
+    string Teamstadium;
+
+    while(ip.good())//runs until we get all data from the file
+    {
+        getline(ip,Teamname,',');
+        getline(ip,Localtown,',');
+        getline(ip,Teamstadium,'\n');
+        cout<<"Team name-"<<Teamname<<"\n";
+        cout<<"Local town- "<<Localtown<<"\n";
+        cout<<"Team stadium-"<<Teamstadium<<"\n";
+        cout<<"......................"<<"\n";
+
+       
+
+
+    }
+    ip.close();//function to close the file
+    return 0;
+}
