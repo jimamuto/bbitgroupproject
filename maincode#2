@@ -23,7 +23,7 @@ vector<string> stadiums = {"CKlein Stadium", "Dolphins Arena", "Wolves Den", "Se
 
 void generateFixtures(vector<Match>& fixtures) {
     int weekend = 1;
-    // Cross-town matches first (Town A vs Town B)
+    // Cross-town matches first 
     for (int i = 0; i < 5; ++i) {
         for (int j = 5; j < 10; ++j) {
             // First leg
@@ -38,14 +38,14 @@ void generateFixtures(vector<Match>& fixtures) {
         }
     }
 
-    // Local town matches (after cross-town matches are scheduled)
-    for (int i = 0; i < 5; ++i) {
-        for (int j = i + 1; j < 5; ++j) {
-            // First leg for Town A teams
+    // Local town matches
+    for (int i = 0; i < 5; i++) {
+        for (int j = i + 1; j < 5; j++) {
+            // First leg 
             fixtures.push_back({teams[i], teams[j], stadiums[i], towns[i], 1, weekend});
             fixtures.push_back({teams[j], teams[i], stadiums[j], towns[j], 2, weekend + 5});
 
-            // First leg for Town B teams
+            // First leg 
             fixtures.push_back({teams[i + 5], teams[j + 5], stadiums[i + 5], towns[i + 5], 1, weekend});
             fixtures.push_back({teams[j + 5], teams[i + 5], stadiums[j + 5], towns[j + 5], 2, weekend + 5});
 
