@@ -57,7 +57,7 @@ void generateFixtures(vector<Match>& fixtures) {
     }
 }
 
-void outputFixturesToConsoleAndFile(const vector<Match>& fixtures)//vector<Match> has been passed by reference to fixture
+void outputFixturesToConsoleAndFile(const vector<Match>& fixtures)//pass by reference has been used hence any change to the arguments passed is reflected in the function when called
 {
     ofstream outFile("fixtures.csv");
     if (!outFile)//error handling
