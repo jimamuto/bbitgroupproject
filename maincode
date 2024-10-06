@@ -58,16 +58,19 @@ void generateFixtures(vector<Match>& fixtures) {
 }
 
 void outputFixturesToConsoleAndFile(const vector<Match>& fixtures) {
-    ofstream outFile("fixtures.txt");
-    if (!outFile) {
+    ofstream outFile("fixtures.csv");
+    if (!outFile)//error handling
+{
         cerr << "Error creating file!" << endl;
         return;
     }
-
+//printing the fixture header to both the console and the file
     cout << "Fixtures:\n";
     outFile << "Fixtures:\n";
-    for (const auto& match : fixtures) {
-        string fixture = "Weekend #" + to_string(match.weekend) + ": " +
+    for (const auto& match : fixtures) //loop iterates over each match in the fixtures vector
+{
+//hence for every match it constructs a string that includes  weekend number,home team, away team,stadium name,town name and leg number
+        string fixture = "Weekend #" + to_string(match.weekend) + ": " +//to string is used to convert numerical values to strings
                          match.homeTeam + " vs " + match.awayTeam +
                          " at " + match.stadium + " (" + match.town + "), Leg " + to_string(match.leg);
 
@@ -79,6 +82,27 @@ void outputFixturesToConsoleAndFile(const vector<Match>& fixtures) {
 }
 
 int main() {
+ //opening the csv file
+    ifstream ip("/Users/onyan/OneDrive/Documents/teams_csvFile.csv");
+    if(!ip.is_open()) cout<<"error" <<endl;
+
+
+    string Teamname;
+    string Localtown;
+    string Teamstadium;
+
+    while(ip.good())//runs until we get all data from the file
+    {
+        getline(ip,Teamname,',');
+        getline(ip,Localtown,',');
+        getline(ip,Teamstadium,'\n');
+        cout<<"Team name-"<<Teamname<<"\n";
+        cout<<"Local town- "<<Localtown<<"\n";
+        cout<<"Team stadium-"<<Teamstadium<<"\n";
+        cout<<"......................"<<"\n";
+    }
+
+    ip.close();//function to close the file
     vector<Match> fixtures;
     generateFixtures(fixtures);
     outputFixturesToConsoleAndFile(fixtures);
