@@ -14,12 +14,12 @@ struct Match {
     int weekend;
 };
 
-vector<string> teams = {"CKlein Stars", "Dolphins FC", "Wolves FC", "Sea Horses FC", "Falcons FC",
-                        "Eagles FC", "Lions FC", "Sharks FC", "Tigers FC", "Bulls FC"};
-vector<string> towns = {"Nairobi", "Nairobi", "Mombasa", "Mombasa", "Mombasa",
+vector<string> teams = {"CKlein Stars", "Wolves FC", "Dolphins FC", "Sea Horses FC", "Sharks United",
+                        "Lake Basin FC", "Thika United", "Mavuno Comrades FC", "Nakuru FC", "Ostrich Associates"};
+vector<string> towns = {"Nairobi", "Nairobi",  "Mombasa", "Mombasa",
                         "Kisumu", "Kisumu", "Thika", "Thika", "Nakuru", "Nakuru"};
-vector<string> stadiums = {"CKlein Stadium", "Dolphins Arena", "Wolves Den", "Sea Horses Park", "Falcons Field",
-                           "Eagles Nest", "Lions Stadium", "Sharks Bay", "Tigers Ground", "Bulls Dome"};
+vector<string> stadiums = {"CKlein Arena", "Wolves", "Dolphins", "SHorses Arena", "Sharks Field",
+                           "LBasin", "Thika Field", "Vuno Grounds", "Nakuru Field", "OAssociates"};
 
 void generateFixtures(vector<Match>& fixtures) {
     int weekend = 1;
