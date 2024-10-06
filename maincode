@@ -24,8 +24,8 @@ vector<string> stadiums = {"CKlein Stadium", "Dolphins Arena", "Wolves Den", "Se
 void generateFixtures(vector<Match>& fixtures) {
     int weekend = 1;
     // Cross-town matches first 
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 5; j < 10; ++j) {
+    for (int i = 0; i < 5; i++) {
+        for (int j = 5; j < 10; j++) {
             // First leg
             fixtures.push_back({teams[i], teams[j], stadiums[i], towns[i], 1, weekend});
             // Second leg
