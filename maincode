@@ -45,7 +45,7 @@ void generateFixtures(vector<Match>& fixtures) {
             fixtures.push_back({teams[i], teams[j], stadiums[i], towns[i], 1, weekend});
             fixtures.push_back({teams[j], teams[i], stadiums[j], towns[j], 2, weekend + 5});
 
-            // First leg 
+            // second leg
             fixtures.push_back({teams[i + 5], teams[j + 5], stadiums[i + 5], towns[i + 5], 1, weekend});
             fixtures.push_back({teams[j + 5], teams[i + 5], stadiums[j + 5], towns[j + 5], 2, weekend + 5});
 
@@ -57,7 +57,8 @@ void generateFixtures(vector<Match>& fixtures) {
     }
 }
 
-void outputFixturesToConsoleAndFile(const vector<Match>& fixtures) {
+void outputFixturesToConsoleAndFile(const vector<Match>& fixtures)//vector<Match> has been passed by reference to fixture
+{
     ofstream outFile("fixtures.csv");
     if (!outFile)//error handling
 {
