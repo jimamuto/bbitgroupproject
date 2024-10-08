@@ -18,7 +18,11 @@ vector<string> teams;
 vector<string> towns;
 vector<string> stadiums;
 
-void generateFixtures(vector<Match>& fixtures) {
+// Generates match fixtures and populates the provided vector with match details.
+// The function creates both cross-town and local matches, 
+// adding them to the fixtures vector by reference to avoid unnecessary copies.
+void generateFixtures(vector<Match>& fixtures)
+{
     int weekend = 1;
 
     // Cross-town matches first
@@ -57,7 +61,7 @@ void writeFixtures( vector<Match>& fixtures) {
 
     for (int i=0;i<fixtures.size();i++)
         {
-        const Match&match=fixtures[i];
+        const Match&match=fixtures[i];//// Reference the current match from the fixtures vector
         matches << match.weekend << ","
                 << match.homeTeam << ","
                 << match.awayTeam << ","
