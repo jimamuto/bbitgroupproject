@@ -14,16 +14,14 @@ struct Match {
     int weekend;
 };
 
-vector<string> teams = {"CKlein Stars", "Wolves FC", "Dolphins FC", "Sea Horses FC", "Sharks United",
-                        "Lake Basin FC", "Thika United", "Mavuno Comrades FC", "Nakuru FC", "Ostrich Associates"};
-vector<string> towns = {"Nairobi", "Nairobi",  "Mombasa", "Mombasa",
-                        "Kisumu", "Kisumu", "Thika", "Thika", "Nakuru", "Nakuru"};
-vector<string> stadiums = {"CKlein Arena", "Wolves", "Dolphins", "SHorses Arena", "Sharks Field",
-                           "LBasin", "Thika Field", "Vuno Grounds", "Nakuru Field", "OAssociates"};
+vector<string> teams;
+vector<string> towns;
+vector<string> stadiums;
 
 void generateFixtures(vector<Match>& fixtures) {
     int weekend = 1;
-    // Cross-town matches first 
+
+    // Cross-town matches first
     for (int i = 0; i < 5; i++) {
         for (int j = 5; j < 10; j++) {
             // First leg
@@ -41,13 +39,9 @@ void generateFixtures(vector<Match>& fixtures) {
     // Local town matches
     for (int i = 0; i < 5; i++) {
         for (int j = i + 1; j < 5; j++) {
-            // First leg 
+            // First leg
             fixtures.push_back({teams[i], teams[j], stadiums[i], towns[i], 1, weekend});
-            fixtures.push_back({teams[j], teams[i], stadiums[j], towns[j], 2, weekend + 5});
-
-            // second leg
-            fixtures.push_back({teams[i + 5], teams[j + 5], stadiums[i + 5], towns[i + 5], 1, weekend});
-            fixtures.push_back({teams[j + 5], teams[i + 5], stadiums[j + 5], towns[j + 5], 2, weekend + 5});
+            fixtures.push_back({teams[j], teams[i], stadiums[j], towns[j], 2, weekend});
 
             // Increment weekend after every 2 matches
             if (fixtures.size() % 2 == 0) {
@@ -57,55 +51,64 @@ void generateFixtures(vector<Match>& fixtures) {
     }
 }
 
-void outputFixturesToConsoleAndFile(const vector<Match>& fixtures)//pass by reference has been used hence any change to the arguments passed is reflected in the function when called
-{
-    ofstream outFile("fixtures.csv");
-    if (!outFile)//error handling
-{
-        cerr << "Error creating file!" << endl;
-        return;
-    }
-//printing the fixture header to both the console and the file
-    cout << "Fixtures:\n";
-    outFile << "Fixtures:\n";
-    for (const auto& match : fixtures) //loop iterates over each match in the fixtures vector
-{
-//hence for every match it constructs a string that includes  weekend number,home team, away team,stadium name,town name and leg number
-        string fixture = "Weekend #" + to_string(match.weekend) + ": " +//to string is used to convert numerical values to strings
-                         match.homeTeam + " vs " + match.awayTeam +
-                         " at " + match.stadium + " (" + match.town + "), Leg " + to_string(match.leg);
+void writeFixtures( vector<Match>& fixtures) {
+    ofstream matches("fixtures.csv");
+    matches << "Weekend,Home Team,Away Team,Stadium,Leg" << endl;
 
-        cout << fixture << endl;
-        outFile << fixture << endl;
+    for (int i=0;i<fixtures.size();i++)
+        {
+        const Match&match=fixtures[i];
+        matches << match.weekend << ","
+                << match.homeTeam << ","
+                << match.awayTeam << ","
+                << match.stadium << ","
+                << match.leg << endl;
     }
+}
 
-    outFile.close();
+void display_fixtures(vector<Match>& fixtures) {
+    for (int i=0;i<fixtures.size();i++)
+    {
+        const Match&match=fixtures[i];
+        cout << "Weekend: " << match.weekend<< "\n"<< match.homeTeam << endl<< "vs""\t"<< match.awayTeam << endl;
+        cout << "Stadium: " << match.stadium << endl;
+        cout << "Leg: " << match.leg << endl;
+        cout << "---------------------" << endl;
+    }
 }
 
 int main() {
- //opening the csv file
     ifstream ip("/Users/onyan/OneDrive/Documents/teams_csvFile.csv");
-    if(!ip.is_open()) cout<<"error" <<endl;
-
+    if (!ip.is_open()) {
+        cout << "Error opening file" << endl;
+        return 1; // Exit if the file cannot be opened
+    }
 
     string Teamname;
     string Localtown;
     string Teamstadium;
 
-    while(ip.good())//runs until we get all data from the file
-    {
-        getline(ip,Teamname,',');
-        getline(ip,Localtown,',');
-        getline(ip,Teamstadium,'\n');
-        cout<<"Team name-"<<Teamname<<"\n";
-        cout<<"Local town- "<<Localtown<<"\n";
-        cout<<"Team stadium-"<<Teamstadium<<"\n";
-        cout<<"......................"<<"\n";
+    // Read lines until the end of the file
+    while (getline(ip, Teamname, ',') &&
+           getline(ip, Localtown, ',') &&
+           getline(ip, Teamstadium)) {
+        // Store the read values into the corresponding vectors
+        teams.push_back(Teamname);
+        towns.push_back(Localtown);
+        stadiums.push_back(Teamstadium);
+
+        cout << "Team name: " << Teamname << "\n"
+             << "Local town: " << Localtown << "\n"
+             << "Team stadium: " << Teamstadium << "\n"
+             << "---------------------" << "\n";
     }
 
-    ip.close();//function to close the file
-    vector<Match> fixtures;
-    generateFixtures(fixtures);
-    outputFixturesToConsoleAndFile(fixtures);
+    ip.close(); // Close the file
+
+    vector<Match> fixtures; // Declare the fixtures vector
+    generateFixtures(fixtures); // Populate the fixtures
+    writeFixtures(fixtures); // Write fixtures to CSV
+    display_fixtures(fixtures); // Display fixtures
+
     return 0;
-}
+
