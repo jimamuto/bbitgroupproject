@@ -115,4 +115,4 @@ int main() {
     display_fixtures(fixtures); // Display fixtures
 
     return 0;
-
+}
